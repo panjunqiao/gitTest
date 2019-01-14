@@ -1,0 +1,108 @@
+//画直线
+
+MathDraw.drawLine(container7.graphics,3,0x00ff00,1,lp,mm);
+
+MathDraw.drawAngle(container5.graphics,lp,mm,nn,35,0x00ff00,0.5);
+
+MathDraw.drawDotLine(nn.x,nn.y,cd.x,cd.y,container4.graphics,6,6,2,0x00FFFF);
+
+MovieOper.calCrossPoint(nn.x,nn.y,chang.x,chang.y,bd.x,bd.y,mm.x,mm.y);
+
+//缓动
+GYTween.to(has_click[i],[TweenData.getInstance("x",333+i*57.95,has_click[i].x,GYTween.reduceEase)],1000);
+
+import com.xpy.MovieOper;
+
+import GYLite.tween.GYTween;
+
+import GYLite.tween.TweenData;
+
+import GYLite.component.container.GYSprite;
+
+import GYLite.skin.GYSkinTheme;
+
+
+
+MovieOper.isHtml=false;
+
+MovieOper.movieSet(this);
+
+GYSprite.Init(stage, new GYSkinTheme);
+
+stop();
+
+addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
+function onMouseDownHandler(e:MouseEvent):void{
+	var str:String=e.target.name;
+}
+
+//第1个参数是拐弯点，第2个是起始点
+function calLinePoint(p1x:Number,p1y:Number,p2x:Number,p2y:Number,len:Number= 1,angle:Number=0):Point{
+	var agl:Number;
+	if(p2y == p1y)
+	{
+		//trace(111);
+		agl = p2x > p1x?Math.PI*2:Math.PI;
+	}
+	else if(p2x == p1x)
+	{
+		//trace(222);
+		agl = p2y > p1y?Math.PI/2:Math.PI*1.5;
+	}
+	else
+	{
+		//trace(333);
+		agl = Math.atan2(p2y - p1y,p2x - p1x);
+	}
+	var tP:Point = Point.polar(len,agl + angle);
+	tP.x += p1x;
+	tP.y += p1y;
+	return tP;
+}
+
+//求点与直线的距离，p0和p1连成直线，p2是点
+function getDistancePointToLine(p0:Object,p1:Object,p2:Object):Number{
+	//先求出垂直线的交点
+	var p:Point=new Point();
+	//如果p0.x==p1.x 说明是条竖着的线
+	if(p0.x==p1.x){
+		p.x=p0.x;
+		p.y=p2.y;
+	}else{
+		var A:Number=(p0.y-p1.y)/(p0.x-p1.x);
+		var B:Number=p0.y-A*p0.x;
+		var m:Number=p2.x+A*p2.y;
+		p.x=(m-A*B)/(A*A+1);
+		p.y=A*p.x+B;
+	}
+	//return p;
+	var len:Number;
+	if(p0.x-p1.x==0){
+		len=Math.abs(p2.x-p0.x);
+	}else{
+		A=(p0.y-p1.y)/(p0.x-p1.x);
+		B=p0.y-A*p0.x;
+		len=Math.abs((A*p2.x+B-p2.y)/Math.sqrt(A*A+1));
+	}
+	return len;
+}
+
+
+C:\Users\XJY\Documents\flash\src_make_20160321
+C:\Users\XJY\Documents\flash\代码库
+
+https://www.everypixel.com/free
+
+https://www.hippopx.com/zh
+
+https://www.pexels.com/
+
+https://unsplash.com/
+
+https://beta.freelyphotos.com/
+
+https://stocksnap.io/
+
+https://pixabay.com/zh/
+
+https://www.lifeofpix.com/
